@@ -1,6 +1,6 @@
 # Import python packages
 import streamlit as st
-from snowflake.snowpark.context import get_active_session
+#from snowflake.snowpark.context import get_active_session
 from snowflake.snowpark.functions import col
 #To use a Snowpark COLUMN function named "col" we need to import it into our app. We'll place the import statement close to where we plan to use it. This will make more sense for beginners as they will be able to see why we imported it and how it is used. In a later lab, we'll move it up with other import statements in order to show good code organization.
 
@@ -15,7 +15,9 @@ name_on_order=st.text_input('Name on Smoothie:')
 st.write('The name on your Smoothie will be:',name_on_order)
 
 
-session = get_active_session()
+#session = get_active_session() ----We don't need this part,we create a SniS
+cnx=st.connection("snowflake")
+session=cnx.session()
 my_dataframe = session.table("smoothies.public.fruit_options").select(col('FRUIT_NAME'))
 #st.dataframe(data=my_dataframe, use_container_width=True)
 
