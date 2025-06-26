@@ -66,7 +66,10 @@ if ingredients_list:
         session.sql(my_insert_stmt).collect()
 
         st.success('Your Smoothie is ordered!',icon="✅")
-    
+
+import requests
+smoothiefroot_response = requests.get("https://my.smoothiefroot.com/api/fruit/watermelon")
+st.text(smoothiefroot_response)
 
 #Changing the LIST to a STRING
 #In order to convert the list to a string, we need to first create a variable and then make sure Python thinks it contains a string.
