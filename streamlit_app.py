@@ -2,6 +2,7 @@
 import streamlit as st
 #from snowflake.snowpark.context import get_active_session
 from snowflake.snowpark.functions import col
+import requests
 #To use a Snowpark COLUMN function named "col" we need to import it into our app. We'll place the import statement close to where we plan to use it. This will make more sense for beginners as they will be able to see why we imported it and how it is used. In a later lab, we'll move it up with other import statements in order to show good code organization.
 
 # Write directly to the app
@@ -51,6 +52,9 @@ if ingredients_list:
     ingredients_string=''
     for fruit_chosen in ingredients_list:
         ingredients_string += fruit_chosen + ' '
+        smoothiefroot_response = requests.get("https://my.smoothiefroot.com/api/fruit/watermelon")
+        sf_df=st.dataframe(data=smoothiefroot_response.json(),use_container_width=True)
+        
         
     #st.write(ingredients_string)
     
@@ -68,10 +72,10 @@ if ingredients_list:
         st.success('Your Smoothie is ordered!',icon="✅")
 
 #New section to display smoothiefroot nutrition information
-import requests
-smoothiefroot_response = requests.get("https://my.smoothiefroot.com/api/fruit/watermelon")
+#import requests --we removed this to the top
+#smoothiefroot_response = requests.get("https://my.smoothiefroot.com/api/fruit/watermelon") --we moved this into fruit_chosen
 #st.text(smoothiefroot_response.json()) --we put this into a dataframe below
-sf_df=st.dataframe(data=smoothiefroot_response.json(),use_container_width=True)
+#sf_df=st.dataframe(data=smoothiefroot_response.json(),use_container_width=True) --we moved this into fruit_chosen
 
 #Changing the LIST to a STRING
 #In order to convert the list to a string, we need to first create a variable and then make sure Python thinks it contains a string.
