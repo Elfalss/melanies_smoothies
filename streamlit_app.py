@@ -3,6 +3,7 @@ import streamlit as st
 #from snowflake.snowpark.context import get_active_session
 from snowflake.snowpark.functions import col
 import requests
+import pandas as pd
 #To use a Snowpark COLUMN function named "col" we need to import it into our app. We'll place the import statement close to where we plan to use it. This will make more sense for beginners as they will be able to see why we imported it and how it is used. In a later lab, we'll move it up with other import statements in order to show good code organization.
 
 # Write directly to the app
@@ -20,8 +21,14 @@ st.write('The name on your Smoothie will be:',name_on_order)
 cnx=st.connection("snowflake")
 session=cnx.session()
 my_dataframe = session.table("smoothies.public.fruit_options").select(col('FRUIT_NAME'),col('SEARCH_ON'))
-st.dataframe(data=my_dataframe, use_container_width=True)
+#st.dataframe(data=my_dataframe, use_container_width=True)
+#st.stop()
+
+#Convert the Snowpark Dataframe to a Pandas Dataframe so we can use the LOC funtion
+pd_df=my_dataframe.to_pandas()
+st.dataframe(pd_df)
 st.stop()
+
 
 #Note that we import the function on line 11 and then edit line 14 so that we bring back only the FRUIT_NAME column instead of the whole table.
                                                                       
