@@ -19,8 +19,9 @@ st.write('The name on your Smoothie will be:',name_on_order)
 #session = get_active_session() ----We don't need this part,we create a SniS
 cnx=st.connection("snowflake")
 session=cnx.session()
-my_dataframe = session.table("smoothies.public.fruit_options").select(col('FRUIT_NAME'))
-#st.dataframe(data=my_dataframe, use_container_width=True)
+my_dataframe = session.table("smoothies.public.fruit_options").select(col('FRUIT_NAME'),col(SEARCH_ON))
+st.dataframe(data=my_dataframe, use_container_width=True)
+st.stop()
 
 #Note that we import the function on line 11 and then edit line 14 so that we bring back only the FRUIT_NAME column instead of the whole table.
                                                                       
